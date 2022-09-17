@@ -1,3 +1,5 @@
+const buttons = document.querySelectorAll("button");
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3);
     switch(computerChoice) {
@@ -17,16 +19,13 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getPlayerChoice() {
-    let playerChoice = prompt('Enter choice for rock, paper, scissors');
-    playerChoice = playerChoice.trim()
-    playerChoice = playerChoice.toLowerCase();
-    if (!(playerChoice === 'rock' || playerChoice === 'paper' || playerChoice === 'scissors')) {
-        console.log(`${playerChoice} is not a valid option, please enter "rock", "paper", or "scissors".`)
-    }
+function getPlayerChoice(e) {
+    let playerChoice = this.classList.value;
+    console.log(this.classList.value);
     return playerChoice;
 }
-function getRoundResult(playerSelection, computerSelection) {
+
+/* function getRoundResult(playerSelection, computerSelection) {
     let result;
     switch (playerSelection) {
         case 'rock':
@@ -55,7 +54,7 @@ function getRoundResult(playerSelection, computerSelection) {
     }
 
     return result;
-}
+} */
 
 function playRound(playerSelection, computerSelection) {
     let result;
@@ -76,20 +75,19 @@ function game() {
     let playerScore = 0;
     let computerScore = 0;
     let gameResult;
-    for (i = 0; i < 5; i++) {
-        const playerSelection = getPlayerChoice();
-        const computerSelection = getComputerChoice();
-        
-        console.log(`You chose ${playerSelection}`);
-        console.log(`The computer chose ${computerSelection}`);
-        let roundResult = playRound(playerSelection, computerSelection);
-        console.log(roundResult)
-        if (roundResult.includes('win')) {
-            playerScore++;
-        }
-        if (roundResult.includes('lose')) {
-            computerScore++;
-        }
+
+    const playerSelection = getPlayerChoice();
+    const computerSelection = getComputerChoice();
+
+    console.log(`You chose ${playerSelection}`);
+    console.log(`The computer chose ${computerSelection}`);
+    let roundResult = playRound(playerSelection, computerSelection);
+    console.log(roundResult)
+    if (roundResult.includes('win')) {
+        playerScore++;
+    }
+    if (roundResult.includes('lose')) {
+        computerScore++;
     }
 
     if (playerScore === computerScore) {
@@ -102,4 +100,5 @@ function game() {
     console.log(`The score was ${playerScore}:${computerScore}, you ${gameResult}!`)
 }
 
-game();
+console.log(buttons);
+buttons.forEach(button => button.addEventListener('click', getPlayerChoice));
