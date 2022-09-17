@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.computer-score,
+.player-score {
+    display: inline;
+}
+
+.score-heading {
+    display: inline;
+}
