@@ -1,6 +1,8 @@
 const results = document.querySelector('.results');
 const buttons = document.querySelectorAll('button');
 const scoreSection = document.querySelector('.score-section');
+const playerScore = document.querySelector('.player-score');
+const computerScore = document.querySelector('.computer-score');
 
 const choiceDiv = document.createElement('div');
 const resultDiv = document.createElement('div');
@@ -79,29 +81,7 @@ function playRound(e) {
     updateScore(result);
 }
 
-function updateScore(roundResult) {
-    const playerScore = document.querySelector('.player-score');
-    const computerScore = document.querySelector('.computer-score');
-
-    let playerScoreInt = parseInt(playerScore.textContent);
-    let computerScoreInt = parseInt(computerScore.textContent);
-
-    if (playerScoreInt === 5 || computerScoreInt === 5) {
-        playerScoreInt = 0;
-        playerScore.textContent = `${playerScoreInt}`;
-        computerScoreInt = 0;
-        computerScore.textContent = `${computerScoreInt}`;
-    }
-    if (roundResult.includes('win')) {
-        playerScoreInt++;
-        playerScore.textContent = `${playerScoreInt}`;
-    }
-
-    if (roundResult.includes('lose')) {
-        computerScoreInt++;
-        computerScore.textContent = `${computerScoreInt}`;
-    }
-
+function checkForGameOver() {
     if (playerScore.textContent === '5') {
         gameOverDiv.textContent = 'You won 5 times! Game over.'
         scoreSection.appendChild(gameOverDiv);
@@ -111,6 +91,31 @@ function updateScore(roundResult) {
         gameOverDiv.textContent = 'The computer won 5 times! Game over.'
         scoreSection.appendChild(gameOverDiv);
         return;
+    }
+}
+
+function updateScore(roundResult) {
+    let playerScoreInt = parseInt(playerScore.textContent);
+    let computerScoreInt = parseInt(computerScore.textContent);
+
+    if (playerScoreInt === 5 || computerScoreInt === 5) {
+        playerScoreInt = 0;
+        playerScore.textContent = `${playerScoreInt}`;
+        computerScoreInt = 0;
+        computerScore.textContent = `${computerScoreInt}`;
+        scoreSection.removeChild(gameOverDiv);
+    }
+
+    if (roundResult.includes('win')) {
+        playerScoreInt++;
+        playerScore.textContent = `${playerScoreInt}`;
+        checkForGameOver();
+    }
+
+    if (roundResult.includes('lose')) {
+        computerScoreInt++;
+        computerScore.textContent = `${computerScoreInt}`;
+        checkForGameOver();
     }
 }
 
