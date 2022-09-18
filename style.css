@@ -4,6 +4,11 @@ body {
     align-items: center;
 }
 
+.container {
+    width: 400px;
+    height: 300px;
+}
+
 .computer-score,
 .player-score {
     display: inline;

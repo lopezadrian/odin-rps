@@ -86,6 +86,12 @@ function updateScore(roundResult) {
     let playerScoreInt = parseInt(playerScore.textContent);
     let computerScoreInt = parseInt(computerScore.textContent);
 
+    if (playerScoreInt === 5 || computerScoreInt === 5) {
+        playerScoreInt = 0;
+        playerScore.textContent = `${playerScoreInt}`;
+        computerScoreInt = 0;
+        computerScore.textContent = `${computerScoreInt}`;
+    }
     if (roundResult.includes('win')) {
         playerScoreInt++;
         playerScore.textContent = `${playerScoreInt}`;
